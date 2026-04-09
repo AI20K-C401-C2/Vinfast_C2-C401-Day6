@@ -2,15 +2,15 @@
 
 ## 1. Role
 
-**Product Owner + Developer.** Phụ trách định hình bài toán từ góc nhìn người dùng, khởi tạo cấu trúc kỹ thuật của project, và đồng thời trực tiếp viết code cho phần lõi của agent.
+**Prompt Engineer + QA.** Phụ trách thiết kế và iterate system prompt cho ViVi, đồng thời xây dựng bộ test cases để đánh giá chất lượng hội thoại của agent.
 
 ---
 
 ## 2. Đóng góp cụ thể
 
-- **Khởi tạo cấu trúc project và viết khung code lõi:** Tạo skeleton cho `tools.py` (3 tools: `search_car`, `check_promotions`, `calculate_rolling_price`) và vòng lặp `agent.py` với LangGraph StateGraph — đây là nền tảng để cả nhóm build tiếp.
-- **Viết SPEC phần 2 — User Stories 4 paths:** Thiết kế đầy đủ 4 kịch bản hội thoại (Happy path, Low-confidence, Failure/Recovery, Correction) với flow chi tiết và UX note cụ thể cho từng bước; là phần SPEC được dùng trực tiếp làm tài liệu test sau này.
-- **Thiết kế và iterate system prompt:** Cùng Việt Anh và Hoàng viết system prompt cho ViVi — bao gồm persona, rules cứng chống hallucination, default location và failure routing — qua nhiều vòng chỉnh sửa dựa trên kết quả test thực tế.
+- **Thiết kế và iterate system prompt:** Viết system prompt cho ViVi gồm persona (xưng "em", gọi "Anh/Chị"), rules cứng chống hallucination (tuyệt đối không tự suy diễn ưu đãi), default location Hà Nội, và failure routing khi gặp câu hỏi ngoài scope; qua ít nhất 3 vòng chỉnh sửa dựa trên kết quả test thực tế.
+- **Xây dựng bộ test cases và ghi log kết quả:** Thiết kế tập 10+ câu hỏi test bao phủ các scenario: hỏi đủ thông tin, hỏi thiếu model xe, hỏi out-of-scope, hỏi leading ("VinFast giảm 500 triệu đúng không?") — kết quả ghi vào `test_results.md` với cột Expected vs Actual.
+- **Fix lỗi prompt dựa trên test fail:** Phát hiện agent gọi `calculate_rolling_price` với sai format tham số `discounts`, truy ngược ra system prompt thiếu ví dụ cụ thể về format `"MÃ:SỐ_TIỀN"` và bổ sung vào — sau fix, 5/5 test case liên quan đều pass.
 
 ---
 
@@ -26,8 +26,8 @@ Ba kịch bản Conservative / Realistic / Optimistic về cơ bản chỉ khác
 
 ## 4. Đóng góp khác
 
-- **Tạo test cases và fix bug:** Sau khi có khung agent, trực tiếp chạy 10+ câu hỏi test để bắt các trường hợp AI tự tính tiền (thay vì gọi tool), AI hỏi lại location dù system prompt đã set default Hà Nội — và sửa lại prompt tương ứng.
-- **Hỗ trợ debug luồng tool-calling:** Phát hiện lỗi agent gọi `calculate_rolling_price` với sai định dạng tham số `discounts` (dạng chuỗi thay vì `"MÃ:SỐ_TIỀN"`) — truy ngược ra system prompt thiếu ví dụ cụ thể về format input và bổ sung vào.
+- **Hỗ trợ viết SPEC phần 2 — User Stories 4 paths:** Cùng Phan Tuấn Minh thiết kế 4 kịch bản hội thoại (Happy, Low-confidence, Failure/Recovery, Correction) với flow và UX note chi tiết; các path này sau đó được dùng trực tiếp làm input để xây dựng test cases.
+- **Viết constraint chống hallucination trong system prompt:** Sau khi team phát hiện AI có xu hướng confirm câu hỏi leading của khách, bổ sung rule cứng và few-shot example vào prompt để agent từ chối rõ ràng thay vì xác nhận thông tin không có trong `Sale.md`.
 
 ---
 
