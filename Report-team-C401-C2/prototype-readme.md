@@ -4,7 +4,7 @@
 Chatbot AI tư vấn bán hàng dành riêng cho xe ô tô VinFast, ứng dụng công nghệ Deep RAG để tra cứu chính xác các chính sách khuyến mãi và hỗ trợ tính toán giá lăn bánh tùy thuộc vào từng dòng xe và đối tượng cụ thể. Trợ lý ảo này giúp tự động hóa khâu giải đáp thắc mắc khách hàng, giảm thiểu hoàn toàn thông tin sai lệch (hallucination) nhờ luôn bám sát vào kho dữ liệu chính sách (`Sale.md`) của VinFast.
 
 ## 2. Level
-**Working** (Đã chạy được code bằng Python với luồng LangGraph, tích hợp tools và gọi được API để chat trực tiếp).
+**Working** (Đã chạy được code bằng Python với luồng LangGraph, tích hợp tools, gọi được API để chat trực tiếp, xây dựng được UI).
 
 ## 3. Link prototype
 - **GitHub Repo / Source Code:** (https://github.com/AI20K-C401-C2/Lab6---VINFAST_C2.git)
